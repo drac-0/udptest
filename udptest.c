@@ -1,7 +1,9 @@
 #include <netinet/in.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
+#include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -23,5 +25,20 @@ int main(int argc, char *argv[]){
     return EXIT_FAILURE;
   }
 
-  int udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
+  int udp = socket(AF_INET, SOCK_DGRAM, 0);
+  if (udp < 0 ){
+    perror("CANT CReATE");
+    return EXIT_FAILURE;
+  }
+  if (sendto(udp, message, strlen(message) + 1, 0,
+             &desti,sizeof(desti)) < 0){
+    perror("FAILED");
+    close(udp);
+    return EXIT_FAILURE;
+  } 
+
+  printf("%s to %s:%d\n", message, ip, port);
+  close(udp);
+
+
 }
