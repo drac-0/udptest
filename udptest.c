@@ -39,6 +39,7 @@ int main(int argc, char *argv[]){
 
   printf("%s to %s:%d\n", message, ip, port);
   close(udp);
+
 }
 
 
