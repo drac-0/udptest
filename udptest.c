@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     return EXIT_FAILURE;
   }
   if (sendto(udp, message, strlen(message) + 1, 0,
-             &desti,sizeof(desti)) < 0){
+             (struct sockaddr *)&desti, sizeof(desti)) < 0){
     perror("FAILED");
     close(udp);
     return EXIT_FAILURE;
@@ -39,6 +39,6 @@ int main(int argc, char *argv[]){
 
   printf("%s to %s:%d\n", message, ip, port);
   close(udp);
-
-
 }
+
+
